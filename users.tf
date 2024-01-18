@@ -30,8 +30,7 @@ resource "azurerm_role_assignment" "user_role" {
 
 */
 
-# its-us@cybergees.com
-# GeesCyber_Azure
+
 
 #az login
 #    Clear-Host
