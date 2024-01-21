@@ -1,8 +1,8 @@
 variable "usernames" {
   description = "List of usernames"
   type        = list(string)
-  default     = [ "brothersake"]
-  #default     = ["frank", "sake", "ali", "kunle", "obi", "ada", "admin", "bisi", "ola", "chuks"]
+  #default     = ["brothersake"]
+  default     = ["frank", "sake", "ali", "kunle", "obi", "ada", "admin", "bisi", "ola", "chuks"]
 }
 
 variable "owners" {
@@ -14,7 +14,7 @@ variable "owners" {
 variable "environment" {
   description = "The deployment environment."
   type        = string
-  default     = "lab"
+  default     = "students"
 }
 
 #variable "usernames" {
@@ -24,9 +24,9 @@ variable "environment" {
 #}
 
 #variable "admin_username" {
- # description = "Admin username for the Linux virtual machines"
- # type        = string
- # default     = "adminuser"
+# description = "Admin username for the Linux virtual machines"
+# type        = string
+# default     = "adminuser"
 #}
 
 variable "vm_size" {
@@ -38,7 +38,7 @@ variable "vm_size" {
 variable "resource_group_name" {
   description = "Name of the Azure resource group"
   type        = string
-  default     = "rg"
+  default     = "students-rg"
 }
 
 variable "location" {
@@ -50,7 +50,7 @@ variable "location" {
 variable "vnet_name" {
   description = "Name of the Azure virtual network"
   type        = string
-  default     = "vnet"
+  default     = "students-vnet"
 }
 
 variable "vnet_address_space" {
@@ -62,7 +62,7 @@ variable "vnet_address_space" {
 variable "subnet_name" {
   description = "Name of the Azure subnet"
   type        = string
-  default     = "labsubnet"
+  default     = "students-subnet"
 }
 
 variable "subnet_address_prefixes" {
@@ -74,13 +74,13 @@ variable "subnet_address_prefixes" {
 variable "public_ip_name" {
   description = "Name of the Azure public IP"
   type        = string
-  default     = "lab-public-ip"
+  default     = "student-public-ip"
 }
 
 variable "nsg_name" {
   description = "Name of the Azure network security group"
   type        = string
-  default     = "lab-subnet-nsg"
+  default     = "students-subnet-nsg"
 }
 
 variable "user_principal_domain" {
@@ -98,7 +98,7 @@ variable "user_password" {
 variable "aad_group_name" {
   description = "Name of the Azure AD group"
   type        = string
-  default     = "lab-user-group"
+  default     = "student-group"
 }
 
 variable "vm_admin_username" {
@@ -110,7 +110,7 @@ variable "vm_admin_username" {
 variable "vm_admin_password" {
   description = "Admin password for the virtual machines"
   type        = string
-  default     = "store in keyvault"
+  default     = "storein1keyvault!"
 
 }
 

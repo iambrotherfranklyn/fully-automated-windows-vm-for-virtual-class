@@ -1,5 +1,5 @@
 
- /*
+/*
 resource "azuread_user" "users" {
   for_each = toset(var.usernames)
 
@@ -29,9 +29,3 @@ resource "azurerm_role_assignment" "user_role" {
 
 
 */
-
-
-
-#az login
-#    Clear-Host
-#    az account set --subscription "e243c19f-f5d7-4038-bdc7-a77ce40f79c3"

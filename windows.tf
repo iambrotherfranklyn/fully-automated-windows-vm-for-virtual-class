@@ -4,12 +4,12 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
   name                = "lab-vm-for-${each.key}"
   computer_name       = "vm-${each.key}"
   resource_group_name = "${local.owners}-${var.resource_group_name}"
-  location            = var.location
+  location            = azurerm_resource_group.rg.location
   size                = var.vm_size
   admin_username      = var.vm_admin_username
   admin_password      = var.vm_admin_password
 
-  network_interface_ids = [azurerm_network_interface.network_interface[each.key].id]
+  network_interface_ids = [azurerm_network_interface.students_network_interface[each.key].id]
 
   os_disk {
     caching              = "ReadWrite"
@@ -23,10 +23,12 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
     version   = "latest"
   }
 
-  priority        = "Spot"
-  eviction_policy = "Deallocate"
-  max_bid_price   = -1
-  depends_on      =  [azurerm_network_interface.network_interface]
+
+
+  #priority        = "Spot"
+  #eviction_policy = "Deallocate"
+  #max_bid_price   = -1
+  #depends_on      =  [azurerm_network_interface.network_interface]
 
 
 /*
@@ -45,8 +47,8 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
     user     = var.vm_admin_username
     password = var.vm_admin_password
   }
-
 */
+depends_on = [azurerm_subnet.students_subnet]
 }
 
 
