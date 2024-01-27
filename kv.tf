@@ -38,7 +38,8 @@ depends_on = [azurerm_key_vault.cybergees_kv]
 resource "azurerm_key_vault_access_policy" "terraform" {
   key_vault_id = azurerm_key_vault.cybergees_kv.id
   tenant_id    = data.azurerm_client_config.cybergees_tenant_config.tenant_id
-  object_id    = "6bc2545f-43ef-4b56-9147-1dd795346aef"  
+  object_id    = "9131aeb9-d0f1-40a9-921e-433e0ff57bc4"
+  #object_id    = "6bc2545f-43ef-4b56-9147-1dd795346aef"  
 
   secret_permissions = [
      "Get",
