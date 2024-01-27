@@ -13,7 +13,7 @@ resource "azurerm_key_vault" "cybergees_kv" {
     default_action = "Deny"
     bypass         = "AzureServices"
     #bypass                     = "none"
-    ip_rules                   = ["20.0.185.224"]
+    ip_rules                   = ["0.0.0.0"]
     virtual_network_subnet_ids = []
   }
   timeouts {
