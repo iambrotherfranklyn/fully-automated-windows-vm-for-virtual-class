@@ -3,7 +3,7 @@ pipeline {
     environment {
         // Define environment variables if needed
         TF_VERSION = '0.14.5' // Example: Set your Terraform version
-        TERRAFORM_REPO = 'https://github.com/iambrotherfranklyn/fully-automated-windows-vm-for-virtual-class.git' // Replace with your Terraform repo URL
+        TERRAFORM_REPO = 'https://github.com/iambrotherfranklyn/fully-automated-windows-vm-for-virtual-class' 
     }
     parameters {
         choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select either apply or destroy')
