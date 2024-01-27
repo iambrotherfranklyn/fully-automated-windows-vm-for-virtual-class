@@ -2,7 +2,8 @@ variable "usernames" {
   description = "List of usernames"
   type        = list(string)
   #default     = ["brothersake"]
-  default     = ["frank", "sake", "ali", "kunle", "obi", "ada", "admin", "bisi", "ola", "chuks"]
+  default = ["frank", "sake"
+  ]
 }
 
 variable "owners" {
@@ -38,7 +39,7 @@ variable "vm_size" {
 variable "resource_group_name" {
   description = "Name of the Azure resource group"
   type        = string
-  default     = "students-rg"
+  default     = "rg"
 }
 
 variable "location" {
@@ -106,39 +107,32 @@ variable "vm_admin_username" {
   type        = string
   default     = "adminuser"
 }
-
-variable "vm_admin_password" {
-  description = "Admin password for the virtual machines"
-  type        = string
-  default     = "storein1keyvault!"
-
-}
-
+/*
 variable "subscription_id" {
   description = "The Subscription ID for Azure"
   type        = string
-  default     = "store in keyvault"
+  default     = "e243c19f-f5d7-4038-bdc7-a77ce40f79c3"
 }
 
 variable "tenant_id" {
   description = "The Tenant ID for Azure"
   type        = string
-  default     = "store in keyvault"
+  default     = "6ccb7334-6f39-4d56-b82a-319cd9a5a549"
 }
 
 variable "client_id" {
   description = "The Client ID for Azure"
   type        = string
-  default     = "store in keyvault"
+  default     = "5dffaefe-2458-4796-ab2a-78506b6814db"
 }
 
 variable "client_secret" {
   description = "The Client Secret for Azure"
   type        = string
-  default     = "store in keyvault"
+  default     = "oAg8Q~0dvk.sTBn46Y9XikasaHmPNwnZFEVCIbgR"
 }
 
-
+*/
 
 
 

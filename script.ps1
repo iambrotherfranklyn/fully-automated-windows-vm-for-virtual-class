@@ -1,3 +1,38 @@
+# PowerShell script to install Google Chrome
+
+# Define the URL for the Google Chrome installer
+$chromeDownloadUrl = "https://dl.google.com/chrome/install/ChromeStandaloneSetup.exe"
+
+# Define the path where the installer will be downloaded
+$downloadPath = "$env:TEMP\ChromeStandaloneSetup.exe"
+
+# Download the installer
+try {
+    Invoke-WebRequest -Uri $chromeDownloadUrl -OutFile $downloadPath
+    Write-Host "Downloaded the installer."
+} catch {
+    Write-Host "Failed to download the installer: $_"
+    exit
+}
+
+# Install Google Chrome silently without user interaction
+try {
+    Start-Process -FilePath $downloadPath -Args "/silent /install" -Wait -PassThru
+    Write-Host "Installation started."
+} catch {
+    Write-Host "Failed to start installation: $_"
+    exit
+}
+
+# Clean up - delete the installer
+try {
+    Remove-Item -Path $downloadPath
+    Write-Host "Cleaned up the installer."
+} catch {
+    Write-Host "Failed to clean up the installer: $_"
+}
+
+
 # Define the bookmarks with their names
 $bookmarks = @{
     "Folder1" = @{

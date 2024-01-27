@@ -4,10 +4,10 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
   name                = "lab-vm-for-${each.key}"
   computer_name       = "vm-${each.key}"
   resource_group_name = "${local.owners}-${var.resource_group_name}"
-  location            = azurerm_resource_group.rg.location
+  location            = azurerm_resource_group.cybergees_rg.location
   size                = var.vm_size
-  admin_username      = var.vm_admin_username
-  admin_password      = var.vm_admin_password
+  admin_username      = each.value
+  admin_password      = azurerm_key_vault_secret.vm_secret[each.key].value
 
   network_interface_ids = [azurerm_network_interface.students_network_interface[each.key].id]
 
@@ -23,7 +23,10 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
     version   = "latest"
   }
 
-
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.cybergees_user_assigned_identity.id]
+  }
 
   #priority        = "Spot"
   #eviction_policy = "Deallocate"
@@ -31,7 +34,7 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
   #depends_on      =  [azurerm_network_interface.network_interface]
 
 
-/*
+  /*
   provisioner "file" {
     content     = file("${path.module}/script.ps1")
     destination = "C:\\script.ps1"
@@ -48,7 +51,7 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
     password = var.vm_admin_password
   }
 */
-depends_on = [azurerm_subnet.students_subnet]
+  depends_on = [azurerm_subnet.students_subnet]
 }
 
 
