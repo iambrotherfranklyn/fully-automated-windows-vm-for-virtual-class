@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    environment {
+        // Define environment variables if needed
+        TF_VERSION = '0.14.5' // Example: Set your Terraform version
+        TERRAFORM_REPO = 'https://github.com/iambrotherfranklyn/fully-automated-windows-vm-for-virtual-class.git' // Replace with your Terraform repo URL
+    }
+    parameters {
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select either apply or destroy')
+    }
+    stages {
+        stage('Checkout SCM') {
+            steps {
+                // Checkout the Jenkins repository
+                checkout scm
+            }
+        }
+        stage('Checkout Terraform Repository') {
+            steps {
+                // Checkout the Terraform repository
+                git TERRAFORM_REPO
+            }
+        }
+        stage('Initialize Terraform') {
+            steps {
+                script {
+                    // Initialize Terraform
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Plan Terraform') {
+            steps {
+                script {
+                    // Terraform plan
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('Apply or Destroy') {
+            steps {
+                script {
+                    if (params.ACTION == 'apply') {
+                        // Apply Terraform
+                        sh 'terraform apply -auto-approve'
+                    } else if (params.ACTION == 'destroy') {
+                        // Destroy Terraform
+                        sh 'terraform destroy -auto-approve'
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            // Add post-build actions if needed
+        }
+    }
+}
