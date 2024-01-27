@@ -107,32 +107,7 @@ variable "vm_admin_username" {
   type        = string
   default     = "adminuser"
 }
-/*
-variable "subscription_id" {
-  description = "The Subscription ID for Azure"
-  type        = string
-  default     = "e243c19f-f5d7-4038-bdc7-a77ce40f79c3"
-}
 
-variable "tenant_id" {
-  description = "The Tenant ID for Azure"
-  type        = string
-  default     = "6ccb7334-6f39-4d56-b82a-319cd9a5a549"
-}
-
-variable "client_id" {
-  description = "The Client ID for Azure"
-  type        = string
-  default     = "5dffaefe-2458-4796-ab2a-78506b6814db"
-}
-
-variable "client_secret" {
-  description = "The Client Secret for Azure"
-  type        = string
-  default     = "oAg8Q~0dvk.sTBn46Y9XikasaHmPNwnZFEVCIbgR"
-}
-
-*/
 
 
 
