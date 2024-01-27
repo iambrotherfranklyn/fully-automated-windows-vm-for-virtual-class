@@ -21,17 +21,30 @@ pipeline {
                 git branch: 'main', url: TERRAFORM_REPO
             }
         }
-        stage('Terraform Operations') {
+        stage('Initialize Terraform') {
             steps {
                 script {
-                    // Wrap Terraform commands with Azure credentials
                     withCredentials([azureServicePrincipal(credentialsId: 'azurelogin', subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID', tenantIdVariable: 'ARM_TENANT_ID', clientIdVariable: 'ARM_CLIENT_ID', clientSecretVariable: 'ARM_CLIENT_SECRET')]) {
                         // Terraform initialization
                         sh 'terraform init'
-                        
+                    }
+                }
+            }
+        }
+        stage('Plan Terraform') {
+            steps {
+                script {
+                    withCredentials([azureServicePrincipal(credentialsId: 'azurelogin', subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID', tenantIdVariable: 'ARM_TENANT_ID', clientIdVariable: 'ARM_CLIENT_ID', clientSecretVariable: 'ARM_CLIENT_SECRET')]) {
                         // Terraform plan
                         sh 'terraform plan'
-
+                    }
+                }
+            }
+        }
+        stage('Apply or Destroy Terraform') {
+            steps {
+                script {
+                    withCredentials([azureServicePrincipal(credentialsId: 'azurelogin', subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID', tenantIdVariable: 'ARM_TENANT_ID', clientIdVariable: 'ARM_CLIENT_ID', clientSecretVariable: 'ARM_CLIENT_SECRET')]) {
                         // Conditional apply or destroy based on the ACTION parameter
                         if (params.ACTION == 'apply') {
                             sh 'terraform apply -auto-approve'
@@ -43,5 +56,5 @@ pipeline {
             }
         }
     }
-    
+
 }
