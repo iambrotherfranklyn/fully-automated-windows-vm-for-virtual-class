@@ -21,31 +21,23 @@ pipeline {
                 git branch: 'main', url: TERRAFORM_REPO
             }
         }
-        stage('Initialize Terraform') {
+        stage('Terraform Operations') {
             steps {
                 script {
-                    // Initialize Terraform
-                    sh 'terraform init'
-                }
-            }
-        }
-        stage('Plan Terraform') {
-            steps {
-                script {
-                    // Terraform plan
-                    sh 'terraform plan'
-                }
-            }
-        }
-        stage('Apply or Destroy') {
-            steps {
-                script {
-                    if (params.ACTION == 'apply') {
-                        // Apply Terraform
-                        sh 'terraform apply -auto-approve'
-                    } else if (params.ACTION == 'destroy') {
-                        // Destroy Terraform
-                        sh 'terraform destroy -auto-approve'
+                    // Wrap Terraform commands with Azure credentials
+                    withCredentials([azureServicePrincipal(credentialsId: 'your-service-principal-credentials-id', subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID', tenantIdVariable: 'ARM_TENANT_ID', clientIdVariable: 'ARM_CLIENT_ID', clientSecretVariable: 'ARM_CLIENT_SECRET')]) {
+                        // Terraform initialization
+                        sh 'terraform init'
+                        
+                        // Terraform plan
+                        sh 'terraform plan'
+
+                        // Conditional apply or destroy based on the ACTION parameter
+                        if (params.ACTION == 'apply') {
+                            sh 'terraform apply -auto-approve'
+                        } else if (params.ACTION == 'destroy') {
+                            sh 'terraform destroy -auto-approve'
+                        }
                     }
                 }
             }
