@@ -10,7 +10,7 @@ terraform {
 
   }
   ##Required version for terraform cli 
-  required_version = "~> 1.4.6"
+ required_version = ">= 1.4.6"
 
   #configuration in backend block to be used because terraform in running in azure pipeline
   # backend "azurerm" {
