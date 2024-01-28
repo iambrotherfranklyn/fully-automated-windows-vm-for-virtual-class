@@ -61,10 +61,14 @@ resource "azurerm_key_vault_access_policy" "cybergees_kv_access_policy_for_admin
   object_id    = "dd509e4c-8bb0-4a65-99e9-df109bd76d8e" 
 
   secret_permissions = [
-    "Get",
-    "List",
-    "Set",
-    "Delete",
+     "Get",
+     "List",
+     "Set",
+     "Delete",
+     "Recover",
+     "Backup",
+     "Restore",
+     "Purge"
   ]
 depends_on = [azurerm_key_vault.cybergees_kv]
 }
