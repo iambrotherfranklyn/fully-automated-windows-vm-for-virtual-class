@@ -54,4 +54,30 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
   depends_on = [azurerm_subnet.students_subnet]
 }
 
+resource "azurerm_virtual_machine_extension" "vm_extension" {
+  for_each            = toset(var.usernames)
+  name                = "run-script-${each.key}"
+  virtual_machine_id  = azurerm_windows_virtual_machine.lab_windows_vm[each.key].id
+  publisher           = "Microsoft.Compute"
+  type                = "CustomScriptExtension"
+  type_handler_version = "1.10"
+
+  settings = <<SETTINGS
+    {
+        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File script.ps1"
+    }
+SETTINGS
+
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+        "fileUris": ["${filebase64("${path.module}/script.ps1")}"]
+    }
+PROTECTED_SETTINGS
+
+  tags = {
+    environment = "lab"
+  }
+}
+
+
 
