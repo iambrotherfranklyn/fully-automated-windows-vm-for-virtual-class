@@ -70,7 +70,7 @@ SETTINGS
 
   protected_settings = <<PROTECTED_SETTINGS
     {
-        "fileUris": ["${filebase64("${path.module}/script.ps1")}"]
+        "fileUris": ["https://github.com/iambrotherfranklyn/fully-automated-windows-vm-for-virtual-class/blob/main/script.ps1"]
     }
 PROTECTED_SETTINGS
 
