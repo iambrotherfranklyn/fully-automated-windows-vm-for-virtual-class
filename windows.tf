@@ -53,7 +53,7 @@ resource "azurerm_windows_virtual_machine" "lab_windows_vm" {
 */
   depends_on = [azurerm_subnet.students_subnet]
 }
-
+/*
 resource "azurerm_virtual_machine_extension" "vm_extension" {
   for_each            = toset(var.usernames)
   name                = "run-script-${each.key}"
@@ -78,6 +78,5 @@ PROTECTED_SETTINGS
     environment = "lab"
   }
 }
-
-
+*/
 

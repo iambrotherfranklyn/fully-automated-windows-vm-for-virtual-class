@@ -1,6 +1,6 @@
 data "azurerm_client_config" "cybergees_tenant_config" {}
 resource "azurerm_key_vault" "cybergees_kv" {
-  name                        = "cybergeeskeyvault112024"
+  name                        = "cybergeeskeyvault122024"
   resource_group_name         = "${local.owners}-${var.resource_group_name}"
   location                    = azurerm_resource_group.cybergees_rg.location
   sku_name                    = "standard"
