@@ -2,8 +2,7 @@ variable "usernames" {
   description = "List of usernames"
   type        = list(string)
   #default     = ["brothersake"]
-  default = ["frank", "sake"
-  ]
+  default = ["frank", "sake"]
 }
 
 variable "owners" {
