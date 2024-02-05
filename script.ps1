@@ -21,9 +21,14 @@ $myAzureVMs = Get-AzVM -ResourceGroupName $resourceGroup -Status | Where-Object 
 
 # Define the script to install Google Chrome
 $chromeInstallScript = @'
-Invoke-WebRequest -Uri "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi" -OutFile "$env:TEMP\googlechromestandaloneenterprise64.msi"
-Start-Process 'msiexec.exe' -ArgumentList "/i `$env:TEMP\googlechromestandaloneenterprise64.msi /qn /norestart" -Wait -NoNewWindow
-Remove-Item -Path "$env:TEMP\googlechromestandaloneenterprise64.msi" -Force
+try {
+    Invoke-WebRequest -Uri "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi" -OutFile "$env:TEMP\googlechromestandaloneenterprise64.msi" -ErrorAction Stop
+    Start-Process 'msiexec.exe' -ArgumentList "/i `$env:TEMP\googlechromestandaloneenterprise64.msi /qn /norestart" -Wait -NoNewWindow -ErrorAction Stop
+    Remove-Item -Path "$env:TEMP\googlechromestandaloneenterprise64.msi" -Force
+    "Google Chrome installed successfully."
+} catch {
+    "Error occurred: $_"
+}
 '@
 
 # Run the script against all VMs
@@ -31,9 +36,9 @@ foreach ($vm in $myAzureVMs) {
     $out = Invoke-AzVMRunCommand -ResourceGroupName $vm.ResourceGroupName -Name $vm.Name -CommandId 'RunPowerShellScript' -ScriptString $chromeInstallScript
     # Check if $out is not null and has a value
     if ($out -and $out.Value) {
-        $output = $vm.Name + " " + $out.Value[0].Message
+        $output = $vm.Name + ": " + $out.Value[0].Message
     } else {
-        $output = $vm.Name + " Script execution failed or returned no output."
+        $output = $vm.Name + ": Script execution failed or returned no output."
     }
     Write-Output $output
 }
